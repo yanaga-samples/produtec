@@ -8,18 +8,21 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 import br.com.produtec.app.quantidade.Quantidade;
+import br.com.produtec.app.quantidade.Subtracao;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -38,7 +41,8 @@ public class Pedido implements Serializable {
 	@NotNull
 	private Integer numero;
 
-	@ManyToMany
+	@ElementCollection
+	@MapKeyJoinColumn(name = "produto_fk")
 	private Map<Produto, Quantidade> produtos = Maps.newHashMap();
 
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
@@ -76,12 +80,30 @@ public class Pedido implements Serializable {
 		return Objects.toStringHelper(this).add("numero", numero).toString();
 	}
 
+	public Pedido addProduto(Produto produto) {
+		return this;
+	}
+
+	public Pedido addProduto(Produto produto, Quantidade quantidade) {
+		return this;
+	}
+
 	public Pedido addCancelamento(Cancelamento cancelamento) {
 		checkNotNull(cancelamento, "Cancelamento não pode ser nulo.");
 		if (!cancelamentos.contains(cancelamento)) {
 			cancelamentos.add(cancelamento);
 		}
 		return this;
+	}
+
+	public Map<Produto, Quantidade> getProdutosNaoCancelados() {
+		Map<Produto, Quantidade> copiaProdutos = Maps.newHashMap(produtos);
+		for (Cancelamento cancelamento : cancelamentos) {
+			Quantidade quantidade = copiaProdutos.get(cancelamento.getProduto());
+			quantidade = Subtracao.newSubtracao(quantidade).subtraendo(cancelamento.getQuantidade()).subtrair();
+			copiaProdutos.put(cancelamento.getProduto(), quantidade);
+		}
+		return ImmutableMap.copyOf(copiaProdutos);
 	}
 
 	public Long getId() {
