@@ -1,10 +1,12 @@
-package br.com.produtec;
+package br.com.produtec.app;
 
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 
 import org.junit.Test;
+
+import br.com.produtec.app.Dinheiro;
 
 public class DinheiroTest {
 

@@ -1,12 +1,13 @@
-package br.com.produtec;
+package br.com.produtec.app.quantidade;
 
-import static br.com.produtec.Quantidade.ARREDONDAMENTO_PADRAO;
+import static br.com.produtec.app.quantidade.Quantidade.ARREDONDAMENTO_PADRAO;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
+
 
 import com.google.common.collect.Lists;
 

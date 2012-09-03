@@ -1,8 +1,10 @@
-package br.com.produtec;
+package br.com.produtec.app;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import br.com.produtec.app.Produto;
 
 public class ProdutoTest {
 

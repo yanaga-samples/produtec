@@ -1,11 +1,11 @@
-package br.com.produtec;
+package br.com.produtec.app;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import br.com.produtec.Telefone.Builder;
+import br.com.produtec.app.Telefone.Builder;
 
 public class TelefoneTest {
 

@@ -1,48 +1,49 @@
-package br.com.produtec.usertype;
+package br.com.produtec.app.quantidade;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.sql.Types;
 
 import org.hibernate.HibernateException;
-import org.joda.time.DateTime;
 
-public class DateTimeUserType extends ImmutableUserType {
+import br.com.produtec.app.usertype.ImmutableUserType;
+
+public class QuantidadeUserType extends ImmutableUserType {
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	public Object nullSafeGet(ResultSet rs, String[] names, Object owner) throws HibernateException, SQLException {
-		Timestamp timestamp = rs.getTimestamp(names[0]);
+		BigDecimal value = rs.getBigDecimal(names[0]);
 		if (rs.wasNull()) {
 			return null;
 		}
 		else {
-			return new DateTime(timestamp.getTime());
+			return QuantidadeFactory.INSTANCE.newQuantidade(value);
 		}
 	}
 
 	@Override
 	public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
 		if (value == null) {
-			st.setNull(index, Types.TIMESTAMP);
+			st.setNull(index, Types.DECIMAL);
 		}
 		else {
-			DateTime dateTime = (DateTime) value;
-			st.setTimestamp(index, new Timestamp(dateTime.getMillis()));
+			Quantidade quantidade = (Quantidade) value;
+			st.setBigDecimal(index, quantidade.valor);
 		}
 	}
 
 	@Override
 	public Class<?> returnedClass() {
-		return DateTime.class;
+		return Quantidade.class;
 	}
 
 	@Override
 	public int[] sqlTypes() {
-		return new int[] { Types.TIMESTAMP };
+		return new int[] { Types.DECIMAL };
 	}
 
 }

@@ -1,4 +1,4 @@
-package br.com.produtec;
+package br.com.produtec.app;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

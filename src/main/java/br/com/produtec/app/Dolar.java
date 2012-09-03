@@ -1,31 +1,31 @@
-package br.com.produtec;
+package br.com.produtec.app;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Real extends Dinheiro {
+public class Dolar extends Dinheiro {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Real ZERO_REAIS = new Real(new BigDecimal("0.00"));
+	private static Dolar ZERO_DOLARES = new Dolar(new BigDecimal("0.00"));
 
-	Real(BigDecimal valor) {
+	Dolar(BigDecimal valor) {
 		super(valor);
 	}
 
 	@Override
 	public boolean isZero() {
-		return this == ZERO_REAIS;
+		return this == ZERO_DOLARES;
 	}
 
-	static Real valueOf(BigDecimal valor) {
+	static Dolar valueOf(BigDecimal valor) {
 		checkNotNull(valor);
 		if (valor.setScale(2, RoundingMode.HALF_EVEN).equals(new BigDecimal("0.00"))) {
-			return ZERO_REAIS;
+			return ZERO_DOLARES;
 		}
-		return new Real(valor);
+		return new Dolar(valor);
 	}
 
 }

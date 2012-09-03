@@ -1,10 +1,14 @@
-package br.com.produtec;
+package br.com.produtec.app.quantidade;
 
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 
 import org.junit.Test;
+
+import br.com.produtec.app.quantidade.Divisao;
+import br.com.produtec.app.quantidade.Quantidade;
+import br.com.produtec.app.quantidade.QuantidadeFactory;
 
 public class DivisaoTest {
 

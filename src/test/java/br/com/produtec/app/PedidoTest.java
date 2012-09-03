@@ -1,10 +1,13 @@
-package br.com.produtec;
+package br.com.produtec.app;
 
 import static org.junit.Assert.*;
 
 import java.util.List;
 
 import org.junit.Test;
+
+import br.com.produtec.app.Cancelamento;
+import br.com.produtec.app.Pedido;
 
 public class PedidoTest {
 
