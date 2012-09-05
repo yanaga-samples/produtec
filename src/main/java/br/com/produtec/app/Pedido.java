@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
+import br.com.produtec.app.quantidade.Adicao;
 import br.com.produtec.app.quantidade.Quantidade;
 import br.com.produtec.app.quantidade.Subtracao;
 
@@ -80,11 +81,17 @@ public class Pedido implements Serializable {
 		return Objects.toStringHelper(this).add("numero", numero).toString();
 	}
 
-	public Pedido addProduto(Produto produto) {
-		return this;
-	}
-
 	public Pedido addProduto(Produto produto, Quantidade quantidade) {
+		checkNotNull(produto);
+		checkNotNull(quantidade);
+		checkArgument(!quantidade.isNegativa());
+		if (!produtos.containsKey(produto)) {
+			produtos.put(produto, quantidade);
+		}
+		else {
+			Quantidade quantidadeAtual = produtos.get(produto);
+			produtos.put(produto, Adicao.newAdicao(quantidadeAtual).somando(quantidade).somar());
+		}
 		return this;
 	}
 
@@ -112,6 +119,10 @@ public class Pedido implements Serializable {
 
 	public Integer getNumero() {
 		return numero;
+	}
+
+	public Map<Produto, Quantidade> getProdutos() {
+		return ImmutableMap.copyOf(produtos);
 	}
 
 	public List<Cancelamento> getCancelamentos() {

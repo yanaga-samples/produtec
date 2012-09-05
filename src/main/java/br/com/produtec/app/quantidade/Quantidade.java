@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import com.google.common.base.Objects;
+
 public class Quantidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -19,17 +21,31 @@ public class Quantidade implements Serializable {
 		this.valor = valor;
 	}
 
-	public Quantidade multiplicar(Quantidade quantidade, Quantidade... demaisQuantidades) {
-		checkNotNull(quantidade, "Quantidade a multiplicar não pode ser nula.");
-		BigDecimal resultado = this.valor.multiply(quantidade.valor);
-		for (Quantidade outra: demaisQuantidades) {
-			resultado = resultado.multiply(outra.valor);
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Quantidade) {
+			Quantidade other = (Quantidade) obj;
+			return Objects.equal(this.valor, other.valor);
 		}
-		return QuantidadeFactory.INSTANCE.newQuantidade(resultado);
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(this.valor);
+	}
+
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this).add("valor", valor).toString();
 	}
 
 	public boolean isZero() {
 		return BigDecimal.ZERO.setScale(valor.scale(), ARREDONDAMENTO_PADRAO).equals(valor);
+	}
+
+	public boolean isNegativa() {
+		return this.valor.compareTo(BigDecimal.ZERO) < 0;
 	}
 
 }
