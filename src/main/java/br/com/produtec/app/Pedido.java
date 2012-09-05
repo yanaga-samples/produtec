@@ -1,5 +1,7 @@
 package br.com.produtec.app;
 
+import static br.com.produtec.app.quantidade.Ops.adicao;
+import static br.com.produtec.app.quantidade.Ops.subtracao;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -90,7 +92,7 @@ public class Pedido implements Serializable {
 		}
 		else {
 			Quantidade quantidadeAtual = produtos.get(produto);
-			produtos.put(produto, Adicao.newAdicao(quantidadeAtual).somando(quantidade).somar());
+			produtos.put(produto, adicao(quantidadeAtual).somando(quantidade).somar());
 		}
 		return this;
 	}
@@ -107,7 +109,7 @@ public class Pedido implements Serializable {
 		Map<Produto, Quantidade> copiaProdutos = Maps.newHashMap(produtos);
 		for (Cancelamento cancelamento : cancelamentos) {
 			Quantidade quantidade = copiaProdutos.get(cancelamento.getProduto());
-			quantidade = Subtracao.newSubtracao(quantidade).subtraendo(cancelamento.getQuantidade()).subtrair();
+			quantidade = subtracao(quantidade).subtraendo(cancelamento.getQuantidade()).subtrair();
 			copiaProdutos.put(cancelamento.getProduto(), quantidade);
 		}
 		return ImmutableMap.copyOf(copiaProdutos);
