@@ -19,9 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
-import br.com.produtec.app.quantidade.Adicao;
 import br.com.produtec.app.quantidade.Quantidade;
-import br.com.produtec.app.quantidade.Subtracao;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
