@@ -1,5 +1,7 @@
 package br.com.produtec.app.quantidade;
 
+import java.math.BigDecimal;
+
 public class Ops {
 
 	private Ops() {
@@ -7,6 +9,10 @@ public class Ops {
 
 	public static Adicao adicao(Quantidade somando) {
 		return Adicao.newAdicao(somando);
+	}
+
+	public static Adicao adicao() {
+		return Adicao.newAdicao(QuantidadeFactory.INSTANCE.newQuantidade(BigDecimal.ZERO));
 	}
 
 	public static Subtracao subtracao(Quantidade minuendo) {

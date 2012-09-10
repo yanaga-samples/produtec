@@ -1,16 +1,18 @@
 package br.com.produtec.app.pedido;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeUtils;
 import org.junit.Test;
 
 import br.com.produtec.app.Cancelamento;
 import br.com.produtec.app.Produto;
-import br.com.produtec.app.pedido.Pedido;
 import br.com.produtec.app.quantidade.Quantidade;
 import br.com.produtec.app.quantidade.QuantidadeFactory;
 
@@ -76,10 +78,30 @@ public class PedidoTest {
 		Map<Produto, Quantidade> produtosNaoCancelados = pedido.getProdutosNaoCancelados();
 		assertEquals(QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("2.00")),
 				produtosNaoCancelados.get(camisa));
-		assertEquals(QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("4.00")),
-				produtosNaoCancelados.get(calca));
-		assertEquals(QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("6.50")),
-				produtosNaoCancelados.get(meia));
+		assertEquals(QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("4.00")), produtosNaoCancelados.get(calca));
+		assertEquals(QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("6.50")), produtosNaoCancelados.get(meia));
+	}
+
+	@Test
+	public void quantidade() {
+		Pedido pedido = Pedido.newPedido(123);
+		Produto camisa = Produto.newProduto("Camisa");
+		Produto calca = Produto.newProduto("Calça");
+		Produto meia = Produto.newProduto("Meia");
+		QuantidadeFactory.INSTANCE.setCasasDecimais(2);
+		pedido.addProduto(camisa, QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("2.00")));
+		pedido.addProduto(calca, QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("4.00")));
+		pedido.addProduto(meia, QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("8.00")));
+
+		DateTimeUtils.setCurrentMillisFixed(new DateTime(2012, 9, 10, 11, 0, 0).getMillis());
+
+		pedido.data = new DateTime(2012, 9, 10, 10, 0, 0);
+		Quantidade totalNormal = QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("14.00"));
+		assertEquals(totalNormal, pedido.getQuantidade());
+
+		pedido.data = new DateTime(2012, 8, 20, 10, 0, 0);
+		Quantidade totalComDesconto = QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("12.60"));
+		assertEquals(totalComDesconto, pedido.getQuantidade());
 	}
 
 }

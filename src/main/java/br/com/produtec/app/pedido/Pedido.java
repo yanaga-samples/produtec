@@ -20,6 +20,8 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeUtils;
 
 import br.com.produtec.app.Cancelamento;
 import br.com.produtec.app.Produto;
@@ -47,7 +49,9 @@ public class Pedido implements Serializable {
 	private Integer numero;
 
 	@Type(type = "estadoPedido")
-	EstadoPedido estadoPedido;
+	EstadoPedido estadoPedido = EstadoPedido.ABERTO;
+
+	DateTime data = new DateTime(DateTimeUtils.currentTimeMillis());
 
 	@ElementCollection
 	@MapKeyJoinColumn(name = "produto_fk")
@@ -67,6 +71,18 @@ public class Pedido implements Serializable {
 		checkNotNull(numero, "Número do pedido não pode ser nulo");
 		checkArgument(numero > 0, "Número do pedido deve ser maior que zero.");
 		return new Pedido(numero);
+	}
+
+	public boolean isCancelado() {
+		return EstadoPedido.CANCELADO == estadoPedido;
+	}
+
+	public boolean isParcialmenteCancelado() {
+		return estadoPedido.isParcialmenteCancelado();
+	}
+
+	public Quantidade getQuantidade() {
+		return estadoPedido.calcularQuantidade(this);
 	}
 
 	@Override
@@ -134,6 +150,10 @@ public class Pedido implements Serializable {
 
 	public List<Cancelamento> getCancelamentos() {
 		return ImmutableList.copyOf(cancelamentos);
+	}
+
+	public DateTime getData() {
+		return data;
 	}
 
 }
