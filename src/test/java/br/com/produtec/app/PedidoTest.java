@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -53,6 +54,31 @@ public class PedidoTest {
 		Produto camisa = Produto.newProduto("Camisa");
 		Quantidade quantidadeCamisas = QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("2.157"));
 		pedido.getProdutos().put(camisa, quantidadeCamisas);
+	}
+
+	@Test
+	public void produtosNaoCancelados() {
+		Pedido pedido = Pedido.newPedido(123);
+		Produto camisa = Produto.newProduto("Camisa");
+		Produto calca = Produto.newProduto("Calça");
+		Produto meia = Produto.newProduto("Meia");
+		QuantidadeFactory.INSTANCE.setCasasDecimais(2);
+		pedido.addProduto(camisa, QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("2.00")));
+		pedido.addProduto(calca, QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("4.00")));
+		pedido.addProduto(meia, QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("8.00")));
+
+		Cancelamento cancelamento = Cancelamento.newCancelamento(pedido);
+		cancelamento.setProduto(meia);
+		cancelamento.setQuantidade(QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("1.50")));
+		pedido.addCancelamento(cancelamento);
+
+		Map<Produto, Quantidade> produtosNaoCancelados = pedido.getProdutosNaoCancelados();
+		assertEquals(QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("2.00")),
+				produtosNaoCancelados.get(camisa));
+		assertEquals(QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("4.00")),
+				produtosNaoCancelados.get(calca));
+		assertEquals(QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("6.50")),
+				produtosNaoCancelados.get(meia));
 	}
 
 }
