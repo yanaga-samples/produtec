@@ -1,4 +1,4 @@
-package br.com.produtec.app;
+package br.com.produtec.app.pedido;
 
 import static br.com.produtec.app.quantidade.Ops.adicao;
 import static br.com.produtec.app.quantidade.Ops.subtracao;
@@ -19,6 +19,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Type;
+
+import br.com.produtec.app.Cancelamento;
+import br.com.produtec.app.Produto;
 import br.com.produtec.app.quantidade.Quantidade;
 
 import com.google.common.base.Objects;
@@ -41,6 +45,9 @@ public class Pedido implements Serializable {
 
 	@NotNull
 	private Integer numero;
+
+	@Type(type = "estadoPedido")
+	EstadoPedido estadoPedido;
 
 	@ElementCollection
 	@MapKeyJoinColumn(name = "produto_fk")

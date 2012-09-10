@@ -1,4 +1,4 @@
-package br.com.produtec.app;
+package br.com.produtec.app.pedido;
 
 import static org.junit.Assert.*;
 
@@ -9,7 +9,8 @@ import java.util.Map;
 import org.junit.Test;
 
 import br.com.produtec.app.Cancelamento;
-import br.com.produtec.app.Pedido;
+import br.com.produtec.app.Produto;
+import br.com.produtec.app.pedido.Pedido;
 import br.com.produtec.app.quantidade.Quantidade;
 import br.com.produtec.app.quantidade.QuantidadeFactory;
 

@@ -13,6 +13,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.produtec.app.pedido.Pedido;
+import br.com.produtec.app.pedido.QPedido;
 import br.com.produtec.config.ProdutecConfig;
 
 import com.mysema.query.BooleanBuilder;

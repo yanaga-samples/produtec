@@ -7,7 +7,7 @@ import org.joda.time.DateTimeUtils;
 import org.junit.Test;
 
 import br.com.produtec.app.Cancelamento;
-import br.com.produtec.app.Pedido;
+import br.com.produtec.app.pedido.Pedido;
 
 public class CancelamentoTest {
 
