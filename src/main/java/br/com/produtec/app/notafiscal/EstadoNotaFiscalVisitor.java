@@ -1,6 +1,6 @@
 package br.com.produtec.app.notafiscal;
 
-public interface EstadoNotaFiscalVisitor<T> {
+interface EstadoNotaFiscalVisitor<T> {
 
 	public T visit(EstadoNotaFiscalFaturada estadoNotaFiscalFaturada);
 

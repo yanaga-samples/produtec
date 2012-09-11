@@ -11,8 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.TypeDef;
+
+import br.com.produtec.app.service.WebServiceReceita;
+
 import com.google.common.base.Objects;
 
+@TypeDef(name = "estadoNotaFiscal", typeClass = EstadoNotaFiscalUserType.class, defaultForType = EstadoNotaFiscal.class)
 @Entity
 public class NotaFiscal implements Serializable {
 
@@ -68,6 +73,13 @@ public class NotaFiscal implements Serializable {
 
 	public int getCodigoNaReceita() {
 		return estado.accept(new CodigoReceitaEstadoNotaFiscalVisitor());
+	}
+
+	public void enviar(WebServiceReceita webServiceReceita) {
+		//codigo encapsulado
+		// Tell, don't ask
+
+		// Mande, não pergunte
 	}
 
 }
