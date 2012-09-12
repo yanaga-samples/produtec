@@ -4,16 +4,16 @@ public enum EmissaoNota {
 
 	REMESSA {
 		@Override
-		public Pizza buildPizza(Pizza pizza) {
-			return EmitirNota.newEmitirNotaRemessa(pizza);
+		public IntegracaoTerceiro buildPizza(IntegracaoTerceiro integracaoTerceiro) {
+			return EmitirNota.newEmitirNotaRemessa(integracaoTerceiro);
 		}
 	}, RETORNO {
 		@Override
-		public Pizza buildPizza(Pizza pizza) {
-			return EmitirNota.newEmitirNotaRetorno(pizza);
+		public IntegracaoTerceiro buildPizza(IntegracaoTerceiro integracaoTerceiro) {
+			return EmitirNota.newEmitirNotaRetorno(integracaoTerceiro);
 		}
 	};
 
-	public abstract Pizza buildPizza(Pizza pizza);
+	public abstract IntegracaoTerceiro buildPizza(IntegracaoTerceiro integracaoTerceiro);
 
 }

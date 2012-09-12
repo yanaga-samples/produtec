@@ -2,26 +2,26 @@ package br.com.produtec.app.transferenciaestoque;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public abstract class EmitirNota implements Pizza {
+public abstract class EmitirNota implements IntegracaoTerceiro {
 
-	private Pizza pizza;
+	private IntegracaoTerceiro integracaoTerceiro;
 
-	EmitirNota(Pizza pizza) {
-		checkNotNull(pizza);
-		this.pizza = pizza;
+	EmitirNota(IntegracaoTerceiro integracaoTerceiro) {
+		checkNotNull(integracaoTerceiro);
+		this.integracaoTerceiro = integracaoTerceiro;
 	}
 
-	public static EmitirNotaRetorno newEmitirNotaRetorno(Pizza pizza) {
-		return new EmitirNotaRetorno(pizza);
+	public static EmitirNotaRetorno newEmitirNotaRetorno(IntegracaoTerceiro integracaoTerceiro) {
+		return new EmitirNotaRetorno(integracaoTerceiro);
 	}
 
-	public static EmitirNotaRemessa newEmitirNotaRemessa(Pizza pizza) {
-		return new EmitirNotaRemessa(pizza);
+	public static EmitirNotaRemessa newEmitirNotaRemessa(IntegracaoTerceiro integracaoTerceiro) {
+		return new EmitirNotaRemessa(integracaoTerceiro);
 	}
 
 	@Override
-	public void comer(TransferenciaEstoque transferenciaEstoque) {
-		pizza.comer(transferenciaEstoque);
+	public void integrar(TransferenciaEstoque transferenciaEstoque) {
+		integracaoTerceiro.integrar(transferenciaEstoque);
 		obterCelula();
 		obterProduto();
 		preencherIntegracao();

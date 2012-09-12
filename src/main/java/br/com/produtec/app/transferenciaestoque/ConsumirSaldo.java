@@ -2,22 +2,22 @@ package br.com.produtec.app.transferenciaestoque;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class ConsumirSaldo implements Pizza {
+public class ConsumirSaldo implements IntegracaoTerceiro {
 
-	private final Pizza pizza;
+	private final IntegracaoTerceiro integracaoTerceiro;
 
-	ConsumirSaldo(Pizza pizza) {
-		checkNotNull(pizza);
-		this.pizza = pizza;
+	ConsumirSaldo(IntegracaoTerceiro integracaoTerceiro) {
+		checkNotNull(integracaoTerceiro);
+		this.integracaoTerceiro = integracaoTerceiro;
 	}
 
-	public static ConsumirSaldo newConsumirSaldo(Pizza pizza) {
-		return new ConsumirSaldo(pizza);
+	public static ConsumirSaldo newConsumirSaldo(IntegracaoTerceiro integracaoTerceiro) {
+		return new ConsumirSaldo(integracaoTerceiro);
 	}
 
 	@Override
-	public void comer(TransferenciaEstoque transferenciaEstoque) {
-		pizza.comer(transferenciaEstoque);
+	public void integrar(TransferenciaEstoque transferenciaEstoque) {
+		integracaoTerceiro.integrar(transferenciaEstoque);
 		consumir();
 	}
 

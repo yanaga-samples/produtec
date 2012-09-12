@@ -3,13 +3,13 @@ package br.com.produtec.app.transferenciaestoque;
 
 public class EmitirNotaRemessa extends EmitirNota {
 
-	EmitirNotaRemessa(Pizza pizza) {
-		super(pizza);
+	EmitirNotaRemessa(IntegracaoTerceiro integracaoTerceiro) {
+		super(integracaoTerceiro);
 	}
 
 	@Override
 	protected void obterCelula() {
-		System.out.println("obtendo celular de remessa");
+		System.out.println("obtendo celula de remessa");
 	}
 
 	@Override

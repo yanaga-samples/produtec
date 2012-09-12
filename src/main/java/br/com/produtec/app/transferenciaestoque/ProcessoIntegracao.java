@@ -6,24 +6,19 @@ public class ProcessoIntegracao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private boolean integrar;
+	Integrar integrar = Integrar.NAO;
 
-	private EmissaoNota emissaoNota;
+	EmissaoNota emissaoNota = EmissaoNota.REMESSA;
 
-	public Pizza buildPizza() {
-		Pizza pizza = EmptyPizza.newEmptyPizza();
-		if (integrar) {
-			pizza = ConsumirSaldo.newConsumirSaldo(pizza);
-			pizza = emissaoNota.buildPizza(pizza);
-		}
-		return pizza;
+	public IntegracaoTerceiro buildIntegracaoTerceiro() {
+		return integrar.decorate(EmptyIntegracaoTerceiro.newEmptyIntegracaoTerceiro(), this);
 	}
 
-	public boolean isIntegrar() {
+	public Integrar getIntegrar() {
 		return integrar;
 	}
 
-	public void setIntegrar(boolean integrar) {
+	public void setIntegrar(Integrar integrar) {
 		this.integrar = integrar;
 	}
 
