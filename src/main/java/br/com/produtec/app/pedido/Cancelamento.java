@@ -1,4 +1,4 @@
-package br.com.produtec.app;
+package br.com.produtec.app.pedido;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -14,7 +14,7 @@ import javax.persistence.Version;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
 
-import br.com.produtec.app.pedido.Pedido;
+import br.com.produtec.app.Produto;
 import br.com.produtec.app.quantidade.Quantidade;
 
 import com.google.common.base.Objects;

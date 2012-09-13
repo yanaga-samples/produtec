@@ -13,13 +13,15 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.TypeDef;
 
+import br.com.produtec.app.pedido.Faturamento;
+import br.com.produtec.app.pedido.PedidoObserver;
 import br.com.produtec.app.service.WebServiceReceita;
 
 import com.google.common.base.Objects;
 
 @TypeDef(name = "estadoNotaFiscal", typeClass = EstadoNotaFiscalUserType.class, defaultForType = EstadoNotaFiscal.class)
 @Entity
-public class NotaFiscal implements Serializable {
+public class NotaFiscal implements Serializable, PedidoObserver {
 
 	private static final long serialVersionUID = 1L;
 
@@ -80,6 +82,11 @@ public class NotaFiscal implements Serializable {
 		// Tell, don't ask
 
 		// Mande, não pergunte
+	}
+
+	@Override
+	public void faturado(Faturamento faturamento) {
+		System.out.println("Nota Fiscal Faturada");
 	}
 
 }
