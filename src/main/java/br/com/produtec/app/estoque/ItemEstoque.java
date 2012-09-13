@@ -6,7 +6,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.security.MessageDigest;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,9 +13,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Transient;
 import javax.persistence.Version;
+
+import org.apache.commons.codec.binary.Hex;
 
 import br.com.produtec.app.Produto;
 import br.com.produtec.app.pedido.Faturamento;
@@ -25,10 +28,8 @@ import br.com.produtec.app.quantidade.Quantidade;
 import br.com.produtec.app.quantidade.QuantidadeFactory;
 
 import com.google.common.base.Objects;
-import com.google.common.hash.Funnel;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hashing;
-import com.google.common.hash.PrimitiveSink;
 
 @Entity
 public class ItemEstoque implements Serializable, PedidoObserver {
@@ -52,6 +53,9 @@ public class ItemEstoque implements Serializable, PedidoObserver {
 	@Column(length = 32)
 	private String md5;
 
+	@Transient
+	private boolean alterada;
+
 	ItemEstoque() {
 	}
 
@@ -67,8 +71,18 @@ public class ItemEstoque implements Serializable, PedidoObserver {
 	@PrePersist
 	@PreUpdate
 	void calcularMd5() {
+		this.md5 = md5();
+	}
+
+	@PostLoad
+	void verificarMd5() {
+		this.alterada = !this.md5.equals(md5());
+	}
+
+	private String md5() {
 		HashCode hashCode = Hashing.md5().newHasher().putString(produto.toString()).putString(quantidade.toString())
 				.hash();
+		return Hex.encodeHexString(hashCode.asBytes());
 	}
 
 	@Override
@@ -108,6 +122,10 @@ public class ItemEstoque implements Serializable, PedidoObserver {
 	public void faturado(Faturamento faturamento) {
 		Quantidade quantidadeFaturada = faturamento.getQuantidade();
 		this.quantidade = subtracao(this.quantidade).subtraendo(quantidadeFaturada).subtrair();
+	}
+
+	public boolean isAlterada() {
+		return alterada;
 	}
 
 }
