@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -15,6 +16,8 @@ import org.joda.time.DateTimeUtils;
 import org.junit.Test;
 
 import br.com.produtec.app.Produto;
+import br.com.produtec.app.pessoa.Vendedor;
+import br.com.produtec.app.quantidade.Percentual;
 import br.com.produtec.app.quantidade.Quantidade;
 import br.com.produtec.app.quantidade.QuantidadeFactory;
 
@@ -117,6 +120,23 @@ public class PedidoTest {
 		pedido.addFaturamento(faturamento);
 		verify(observador1).faturado(any(Faturamento.class));
 		verify(observador2).faturado(faturamento);
+	}
+
+	@Test
+	public void comissao() {
+		Pedido pedido = Pedido.newPedido(123);
+		Produto camisa = Produto.newProduto("Camisa");
+		Produto calca = Produto.newProduto("Calça");
+		Produto meia = Produto.newProduto("Meia");
+		QuantidadeFactory.INSTANCE.setCasasDecimais(2);
+		pedido.addProduto(camisa, QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("12.00")));
+		pedido.addProduto(calca, QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("24.00")));
+		pedido.addProduto(meia, QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("28.00")));
+		Vendedor vendedor = mock(Vendedor.class);
+		when(vendedor.getComissao()).thenReturn(Percentual.newPercentual(new BigDecimal("7.5")));
+		pedido.setVendedor(vendedor);
+		Quantidade comissao = QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("4.8"));
+		assertEquals(comissao, pedido.getComissao());
 	}
 
 }

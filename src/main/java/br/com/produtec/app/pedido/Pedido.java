@@ -17,6 +17,8 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
@@ -28,6 +30,7 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
 
 import br.com.produtec.app.Produto;
+import br.com.produtec.app.pessoa.Vendedor;
 import br.com.produtec.app.quantidade.Quantidade;
 import br.com.produtec.app.quantidade.QuantidadeFactory;
 
@@ -57,6 +60,10 @@ public class Pedido implements Serializable {
 	EstadoPedido estadoPedido = EstadoPedido.ABERTO;
 
 	DateTime data = new DateTime(DateTimeUtils.currentTimeMillis());
+
+	@ManyToOne
+	@JoinColumn(name = "vendedor_fk")
+	private Vendedor vendedor;
 
 	@ElementCollection
 	@MapKeyJoinColumn(name = "produto_fk")
@@ -167,6 +174,16 @@ public class Pedido implements Serializable {
 		return new QuantidadeZeroParaNuloMap(ImmutableMap.copyOf(copiaProdutos));
 	}
 
+	public Quantidade getComissao() {
+		Map<Produto, Quantidade> produtosNaoCancelados = getProdutosNaoCancelados();
+		Quantidade comissao = QuantidadeFactory.INSTANCE.newQuantidade(BigDecimal.ZERO);
+		for (Produto produto: produtosNaoCancelados.keySet()) {
+			Quantidade comissaoProduto = produtosNaoCancelados.get(produto).percentual(vendedor.getComissao());
+			comissao = adicao(comissao).somando(comissaoProduto).somar();
+		}
+		return comissao;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -185,6 +202,14 @@ public class Pedido implements Serializable {
 
 	public DateTime getData() {
 		return data;
+	}
+
+	public Vendedor getVendedor() {
+		return vendedor;
+	}
+
+	public void setVendedor(Vendedor vendedor) {
+		this.vendedor = vendedor;
 	}
 
 	public static class QuantidadeZeroParaNuloMap implements Map<Produto, Quantidade> {
