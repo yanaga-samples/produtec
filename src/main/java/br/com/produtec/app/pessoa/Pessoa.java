@@ -40,4 +40,8 @@ public abstract class Pessoa implements Serializable {
 		return id;
 	}
 
+	public abstract String getNomeRazaoSocial();
+
+	public abstract void setNomeRazaoSocial(String nomeRazaoSocial);
+
 }

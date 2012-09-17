@@ -41,4 +41,13 @@ public class PessoaFisica extends Pessoa {
 		return Objects.toStringHelper(this).add("nome", nome).toString();
 	}
 
+	@Override
+	public String getNomeRazaoSocial() {
+		return this.nome;
+	}
+
+	@Override
+	public void setNomeRazaoSocial(String nomeRazaoSocial) {
+		this.nome = nomeRazaoSocial;
+	}
 }
