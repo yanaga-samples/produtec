@@ -1,5 +1,6 @@
 package br.com.produtec.app;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import javax.persistence.EntityManager;
@@ -15,6 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.produtec.app.pedido.Pedido;
 import br.com.produtec.app.pedido.QPedido;
+import br.com.produtec.app.pessoa.Funcionario;
+import br.com.produtec.app.pessoa.Pessoa;
+import br.com.produtec.app.pessoa.PessoaFisica;
 import br.com.produtec.config.ProdutecConfig;
 
 import com.mysema.query.BooleanBuilder;
@@ -32,7 +36,7 @@ public class HibernateIT {
 
 	@Transactional
 	@Test
-	public void save() {
+	public void pedido() {
 		Pedido pedido = Pedido.newPedido(123);
 		entityManager.persist(pedido);
 		entityManager.flush();
@@ -43,6 +47,17 @@ public class HibernateIT {
 		builder.and(qPedido.numero.eq(123));
 		Pedido resultado = query.from(qPedido).uniqueResult(qPedido);
 		assertNotNull(resultado);
+	}
+
+	@Test
+	public void funcionario() {
+		PessoaFisica fulano = Pessoa.newPessoaFisica("Fulano");
+		Funcionario funcionario = Funcionario.newFuncionario(fulano);
+		entityManager.persist(fulano);
+		entityManager.persist(funcionario);
+		assertNotNull(fulano.getId());
+		assertNotNull(funcionario.getId());
+		assertEquals(fulano.getId(), funcionario.getId());
 	}
 
 }

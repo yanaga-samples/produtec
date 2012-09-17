@@ -2,6 +2,9 @@ package br.com.produtec.app.pedido;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -101,6 +104,19 @@ public class PedidoTest {
 		pedido.data = new DateTime(2012, 8, 20, 10, 0, 0);
 		Quantidade totalComDesconto = QuantidadeFactory.INSTANCE.newQuantidade(new BigDecimal("12.60"));
 		assertEquals(totalComDesconto, pedido.getQuantidade());
+	}
+
+	@Test
+	public void observador() {
+		Pedido pedido = Pedido.newPedido(123);
+		PedidoObserver observador1 = mock(PedidoObserver.class);
+		PedidoObserver observador2 = mock(PedidoObserver.class);
+		Faturamento faturamento = mock(Faturamento.class);
+		pedido.addObservador(observador1);
+		pedido.addObservador(observador2);
+		pedido.addFaturamento(faturamento);
+		verify(observador1).faturado(any(Faturamento.class));
+		verify(observador2).faturado(faturamento);
 	}
 
 }
