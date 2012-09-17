@@ -1,4 +1,4 @@
-package br.com.produtec.app.percentual;
+package br.com.produtec.app.quantidade;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;

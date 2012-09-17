@@ -1,4 +1,4 @@
-package br.com.produtec.app.percentual;
+package br.com.produtec.app.quantidade;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -48,4 +48,10 @@ public class Quantidade implements Serializable {
 		return this.valor.compareTo(BigDecimal.ZERO) < 0;
 	}
 
+	public Quantidade percentual(Percentual percentual) {
+		BigDecimal resultado = valor.multiply(percentual.valor)
+				.divide(new BigDecimal("100"), ARREDONDAMENTO_PADRAO);
+		return QuantidadeFactory.INSTANCE.newQuantidade(resultado);
+	}
+
 }

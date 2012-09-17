@@ -11,7 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
-import br.com.produtec.app.percentual.Percentual;
+import br.com.produtec.app.quantidade.Percentual;
 
 @Entity
 public class Vendedor implements Serializable {

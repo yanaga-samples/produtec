@@ -12,8 +12,8 @@ import org.joda.time.DateTime;
 
 import br.com.produtec.app.pedido.EstadoPedido;
 import br.com.produtec.app.pedido.EstadoPedidoUserType;
-import br.com.produtec.app.percentual.Percentual;
-import br.com.produtec.app.percentual.PercentualUserType;
+import br.com.produtec.app.quantidade.Percentual;
+import br.com.produtec.app.quantidade.PercentualUserType;
 import br.com.produtec.app.quantidade.Quantidade;
 import br.com.produtec.app.quantidade.QuantidadeUserType;
 import br.com.produtec.app.usertype.DateTimeUserType;
