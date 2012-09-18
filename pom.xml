@@ -27,7 +27,7 @@
 	<properties>
 		<java.version>1.6</java.version>
 		<mojarra.version>2.1.7</mojarra.version>
-		<primefaces.version>3.3</primefaces.version>
+		<primefaces.version>3.4</primefaces.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<querydsl.version>2.7.2</querydsl.version>
