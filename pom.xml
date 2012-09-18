@@ -34,6 +34,7 @@
 		<slf4j.version>1.6.1</slf4j.version>
 		<spring.version>3.1.1.RELEASE</spring.version>
 		<spring-data-jpa.version>1.1.0.RELEASE</spring-data-jpa.version>
+		<spring-webflow.version>2.3.1.RELEASE</spring-webflow.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -205,6 +206,29 @@
 			<groupId>javax.transaction</groupId>
 			<artifactId>jta</artifactId>
 			<version>1.1</version>
+		</dependency>
+		<!-- webflow -->
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-webflow</artifactId>
+			<version>${spring-webflow.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-faces</artifactId>
+			<version>${spring-webflow.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!-- Spring Data JPA -->
 		<dependency>
