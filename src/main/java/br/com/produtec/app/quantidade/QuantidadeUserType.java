@@ -28,7 +28,7 @@ public class QuantidadeUserType extends ImmutableUserType {
 	@Override
 	public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
 		if (value == null) {
-			st.setNull(index, Types.DECIMAL);
+			st.setNull(index, Types.NUMERIC);
 		}
 		else {
 			Quantidade quantidade = (Quantidade) value;
@@ -43,7 +43,7 @@ public class QuantidadeUserType extends ImmutableUserType {
 
 	@Override
 	public int[] sqlTypes() {
-		return new int[] { Types.DECIMAL };
+		return new int[] { Types.NUMERIC };
 	}
 
 }

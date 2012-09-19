@@ -17,8 +17,8 @@ public class DesenvolvimentoDatabaseConfig implements DatabaseConfig {
 	@Override
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-		factoryBean.setPersistenceUnitName("mysql");
 		factoryBean.setDataSource(dataSource());
+		factoryBean.setPersistenceUnitName("mysql");
 		return factoryBean;
 	}
 
