@@ -13,8 +13,14 @@ public class PedidoController {
 	@Inject
 	private PedidoFacade pedidoFacade;
 
+	private FiltroPedido filtro = new FiltroPedido();
+
 	public Pedido novo() {
 		return pedidoFacade.novoPedido();
+	}
+
+	public FiltroPedido getFiltro() {
+		return filtro;
 	}
 
 }
