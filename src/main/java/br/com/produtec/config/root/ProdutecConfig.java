@@ -1,10 +1,13 @@
 package br.com.produtec.config.root;
 
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Controller;
 
-@ComponentScan("br.com.produtec")
 @Configuration
+@ComponentScan(basePackages = "br.com.produtec", scopedProxy = ScopedProxyMode.TARGET_CLASS, excludeFilters = @Filter(Controller.class))
 public class ProdutecConfig {
 
 }
