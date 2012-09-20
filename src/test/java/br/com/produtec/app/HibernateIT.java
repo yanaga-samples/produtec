@@ -19,7 +19,7 @@ import br.com.produtec.app.pedido.QPedido;
 import br.com.produtec.app.pessoa.Funcionario;
 import br.com.produtec.app.pessoa.Pessoa;
 import br.com.produtec.app.pessoa.PessoaFisica;
-import br.com.produtec.config.ProdutecConfig;
+import br.com.produtec.config.root.ProdutecConfig;
 
 import com.mysema.query.BooleanBuilder;
 import com.mysema.query.jpa.JPQLQuery;

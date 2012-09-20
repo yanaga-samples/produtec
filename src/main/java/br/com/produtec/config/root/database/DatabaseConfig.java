@@ -1,4 +1,4 @@
-package br.com.produtec.config.database;
+package br.com.produtec.config.root.database;
 
 import javax.sql.DataSource;
 

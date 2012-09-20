@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import br.com.produtec.app.pedido.Pedido;
-import br.com.produtec.config.ProdutecConfig;
+import br.com.produtec.config.root.ProdutecConfig;
 
 @ActiveProfiles("teste")
 @RunWith(SpringJUnit4ClassRunner.class)

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.produtec.app.pedido.Pedido;
 import br.com.produtec.app.pedido.QPedido;
-import br.com.produtec.config.ProdutecConfig;
+import br.com.produtec.config.root.ProdutecConfig;
 
 @ActiveProfiles("teste")
 @RunWith(SpringJUnit4ClassRunner.class)

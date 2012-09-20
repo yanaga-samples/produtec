@@ -15,7 +15,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import br.com.produtec.app.pessoa.Pessoa;
 import br.com.produtec.app.pessoa.PessoaFisica;
 import br.com.produtec.app.pessoa.Vendedor;
-import br.com.produtec.config.ProdutecConfig;
+import br.com.produtec.config.root.ProdutecConfig;
 
 @ActiveProfiles("teste")
 @RunWith(SpringJUnit4ClassRunner.class)

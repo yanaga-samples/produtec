@@ -17,7 +17,7 @@
 					<p:commandButton value="Filtrar" action="filtrar" />
 				</p:fieldset>
 				<p:spacer height="5" />
-				<p:dataTable value="#{pedidos}" var="p"
+				<p:dataTable value="#{pedidoController.pedidos}" var="p"
 					emptyMessage="Nenhum pedido encontrado.">
 					<p:column headerText="N.o">
 						<h:outputText value="#{p.numero}" />

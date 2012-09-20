@@ -1,4 +1,4 @@
-package br.com.produtec.config.database;
+package br.com.produtec.config.root.database;
 
 import javax.sql.DataSource;
 
@@ -8,7 +8,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
-import br.com.produtec.config.annotation.Teste;
+import br.com.produtec.config.root.annotation.Teste;
 
 @Teste
 @Configuration

@@ -1,4 +1,4 @@
-package br.com.produtec.config;
+package br.com.produtec.config.root;
 
 import javax.persistence.EntityManagerFactory;
 

@@ -1,4 +1,4 @@
-package br.com.produtec.config.database;
+package br.com.produtec.config.root.database;
 
 import javax.sql.DataSource;
 
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
-import br.com.produtec.config.annotation.Desenvolvimento;
+import br.com.produtec.config.root.annotation.Desenvolvimento;
 
 @Desenvolvimento
 @Configuration
