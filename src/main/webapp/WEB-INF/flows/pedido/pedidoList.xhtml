@@ -11,18 +11,21 @@
 					<h:panelGrid columns="3">
 						<p:outputLabel for="filtroNumero" value="N.o:" />
 						<p:inputText id="filtroNumero"
-							value="#{pedidoController.filtro.numero}" size="10" />
+							value="#{filtro.numero}" size="10" />
 						<p:message for="filtroNumero" />
 					</h:panelGrid>
-					<p:commandButton value="Filtrar" action="filtrar" />
+					<p:commandButton value="Filtrar" action="filtrar" update="@form"/>
 				</p:fieldset>
 				<p:spacer height="5" />
-				<p:dataTable value="#{pedidoController.pedidos}" var="p"
+				<p:dataTable value="#{pedidos}" var="p"
 					emptyMessage="Nenhum pedido encontrado.">
 					<p:column headerText="N.o">
 						<h:outputText value="#{p.numero}" />
 					</p:column>
-					<p:column>
+					<p:column headerText="Nome">
+						<h:outputText value="#{p.nome}" />
+					</p:column>
+					<p:column style="width: 80px">
 						<p:commandButton icon="ui-icon-pencil" action="editar" />
 					</p:column>
 				</p:dataTable>

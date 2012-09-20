@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<persistence-context />
+
+	<view-state id="pedidoList">
+		<on-entry>
+			<evaluate expression="pedidoController.getFiltro()" result="viewScope.filtro" />
+		</on-entry>
+		<transition on="filtrar">
+			<evaluate expression="pedidoController.getPedidos()" result="viewScope.pedidos" result-type="dataModel" />
+		</transition>
+		<transition on="novo" to="pedidoEdit">
+			<evaluate expression="pedidoController.novo()" result="flowScope.pedido" />
+		</transition>
+		<transition on="editar" to="pedidoEdit">
+			<set name="flowScope.pedido" value="pedidos.selectedRow" />
+		</transition>
+	</view-state>
+
+	<view-state id="pedidoEdit">
+		<transition on="salvar" to="ok">
+			<evaluate expression="pedidoRepository.save(pedido)" />
+		</transition>
+		<transition on="cancelar" to="cancel" />
+	</view-state>
+
+	<end-state id="ok" commit="true" />
+	<end-state id="cancel" />
+</flow>

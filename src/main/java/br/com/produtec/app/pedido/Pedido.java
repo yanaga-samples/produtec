@@ -56,6 +56,8 @@ public class Pedido implements Serializable {
 	@NotNull
 	private Integer numero;
 
+	private String nome;
+
 	@Type(type = "estadoPedido")
 	EstadoPedido estadoPedido = EstadoPedido.ABERTO;
 
@@ -210,6 +212,14 @@ public class Pedido implements Serializable {
 
 	public void setVendedor(Vendedor vendedor) {
 		this.vendedor = vendedor;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public static class QuantidadeZeroParaNuloMap implements Map<Produto, Quantidade> {

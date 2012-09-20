@@ -2,8 +2,6 @@ package br.com.produtec.app.web.controller;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -14,7 +12,7 @@ import br.com.produtec.app.pedido.repository.PedidoRepository;
 @Controller
 public class PedidoController {
 
-	@Inject
+	@Autowired
 	private PedidoFacade pedidoFacade;
 
 	@Autowired
