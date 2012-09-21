@@ -7,17 +7,14 @@
 
 	<http pattern="/spring/javax.faces.resource/**" security="none" />
 	<http>
+		<anonymous />
 		<intercept-url pattern="/**" access="ROLE_USER" />
 		<http-basic />
 		<logout logout-url="/spring/logout" logout-success-url="/" />
 	</http>
 	<authentication-manager alias="authenticationManager">
-		<authentication-provider>
+		<authentication-provider user-service-ref="produtecUserDetailsService">
 			<password-encoder hash="plaintext" />
-			<user-service>
-				<user name="yanaga" password="123" authorities="ROLE_USER" />
-			</user-service>
 		</authentication-provider>
 	</authentication-manager>
-
 </beans:beans>

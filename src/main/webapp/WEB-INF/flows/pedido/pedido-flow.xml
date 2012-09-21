@@ -3,6 +3,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
+	<secured attributes="ROLE_USER"/>
 	<persistence-context />
 
 	<view-state id="pedidoList">
@@ -21,6 +22,7 @@
 	</view-state>
 
 	<view-state id="pedidoEdit">
+		<secured attributes="ROLE_EDITAR_PEDIDO"/>
 		<transition on="salvar" to="ok">
 			<evaluate expression="pedidoRepository.save(pedido)" />
 		</transition>

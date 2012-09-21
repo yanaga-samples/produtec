@@ -14,6 +14,7 @@
 			max-execution-snapshots="3" />
 		<webflow:flow-execution-listeners>
 			<webflow:listener ref="facesContextListener" />
+			<webflow:listener ref="securityFlowExecutionListener" />
 			<webflow:listener ref="jpaFlowExecutionListener" />
 		</webflow:flow-execution-listeners>
 	</webflow:flow-executor>
@@ -28,6 +29,8 @@
 
 	<!-- Installs a listener that creates and releases the FacesContext for each request. -->
 	<bean id="facesContextListener" class="org.springframework.faces.webflow.FlowFacesContextLifecycleListener" />
+	<!-- Installs a listener to apply Spring Security authorities -->
+	<bean id="securityFlowExecutionListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener" />
 	<!-- Installs a listener that creates and releases the EntityManager for each flow -->
 	<bean id="jpaFlowExecutionListener" class="org.springframework.webflow.persistence.JpaFlowExecutionListener">
 		<constructor-arg ref="entityManagerFactory" />
