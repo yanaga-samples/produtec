@@ -1,12 +1,11 @@
 package br.com.produtec.app.seguranca;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
 
 import org.junit.Test;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 public class UsuarioTest {
 
@@ -21,8 +20,8 @@ public class UsuarioTest {
 		usuario.addPerfil(perfilA);
 		usuario.addPerfil(perfilB);
 		Collection<? extends GrantedAuthority> authorities = usuario.getAuthorities();
-		assertTrue(authorities.contains(new SimpleGrantedAuthority("ROLE_USER")));
-		assertTrue(authorities.contains(new SimpleGrantedAuthority("ROLE_EDITAR_PEDIDO")));
+		assertTrue(authorities.contains(Permissao.ROLE_USER));
+		assertTrue(authorities.contains(Permissao.ROLE_EDITAR_PEDIDO));
 	}
 
 }

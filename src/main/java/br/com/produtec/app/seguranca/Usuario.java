@@ -6,7 +6,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +18,6 @@ import javax.persistence.Version;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.google.common.base.Objects;
@@ -27,7 +25,6 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 @Entity
 public class Usuario implements UserDetails, Serializable {
@@ -116,21 +113,9 @@ public class Usuario implements UserDetails, Serializable {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return converterPermissoesParaAuthorities(obterTodasPermissoes());
-	}
-
-	private Set<Permissao> obterTodasPermissoes() {
-		Set<Permissao> permissoes = Sets.newHashSet();
+		Builder<Permissao> builder = ImmutableSet.builder();
 		for (PerfilUsuario perfil : perfis) {
-			permissoes.addAll(perfil.getPermissoes());
-		}
-		return permissoes;
-	}
-
-	private Collection<? extends GrantedAuthority> converterPermissoesParaAuthorities(Set<Permissao> permissoes) {
-		Builder<GrantedAuthority> builder = ImmutableSet.builder();
-		for (Permissao permissao : permissoes) {
-			builder.add(new SimpleGrantedAuthority(permissao.name()));
+			builder.addAll(perfil.getPermissoes());
 		}
 		return builder.build();
 	}
