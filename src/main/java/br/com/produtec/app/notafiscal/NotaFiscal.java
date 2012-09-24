@@ -5,13 +5,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.TypeDef;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import br.com.produtec.app.pedido.Faturamento;
 import br.com.produtec.app.pedido.PedidoObserver;
@@ -19,18 +16,13 @@ import br.com.produtec.app.service.WebServiceReceita;
 
 import com.google.common.base.Objects;
 
-@TypeDef(name = "estadoNotaFiscal", typeClass = EstadoNotaFiscalUserType.class, defaultForType = EstadoNotaFiscal.class)
-@Entity
+@Document
 public class NotaFiscal implements Serializable, PedidoObserver {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
-	private Long id;
-
-	@Version
-	Integer version;
+	private String id;
 
 	EstadoNotaFiscal estado = EstadoNotaFiscal.FATURADA;
 

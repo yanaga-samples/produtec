@@ -3,12 +3,15 @@ package br.com.produtec.config.root.mongo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 
 import br.com.produtec.config.root.annotation.Desenvolvimento;
+import br.com.produtec.config.root.annotation.Teste;
 
 import com.mongodb.Mongo;
 
+@Teste
 @Desenvolvimento
 @Configuration
 public class LocalhostMongoConfig implements MongoConfig {
@@ -22,6 +25,12 @@ public class LocalhostMongoConfig implements MongoConfig {
 	@Bean
 	public MongoDbFactory mongoDbFactory() throws Exception {
 		return new SimpleMongoDbFactory(mongo(), "produtec");
+	}
+
+	@Override
+	@Bean
+	public MongoTemplate mongoTemplate() throws Exception {
+		return new MongoTemplate(mongoDbFactory());
 	}
 
 }
