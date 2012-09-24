@@ -448,6 +448,7 @@
 				<version>1.0</version>
 				<executions>
 					<execution>
+						<id>jpa</id>
 						<goals>
 							<goal>process</goal>
 						</goals>

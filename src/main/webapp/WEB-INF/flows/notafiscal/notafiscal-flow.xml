@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<secured attributes="ROLE_USER" />
+	<persistence-context />
+
+	<view-state id="notaFiscalList">
+		<on-entry>
+			<evaluate expression="notaFiscalController.getFiltro()" result="viewScope.filtro" />
+		</on-entry>
+		<on-render>
+			<evaluate expression="notaFiscalController.filtrar(filtro)" result="viewScope.notas" result-type="dataModel" />
+		</on-render>
+		<transition on="novo" to="notaFiscalEdit">
+			<evaluate expression="notaFiscalController.novo()" result="flowScope.notaFiscal" />
+		</transition>
+		<transition on="editar" to="notaFiscalEdit">
+			<set name="flowScope.notaFiscal" value="notaFiscals.selectedRow" />
+		</transition>
+	</view-state>
+
+	<view-state id="notaFiscalEdit">
+		<transition on="salvar" to="ok">
+			<evaluate expression="notaFiscalRepository.save(notaFiscal)" />
+		</transition>
+		<transition on="cancelar" to="cancel" />
+	</view-state>
+
+	<end-state id="ok" commit="true" />
+	<end-state id="cancel" />
+</flow>

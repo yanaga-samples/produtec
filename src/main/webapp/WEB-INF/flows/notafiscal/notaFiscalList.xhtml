@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	template="/WEB-INF/template/blank.xhtml">
+	<ui:define name="body">
+		<h:form>
+			<p:panel header="Consulta de Notas Fiscais">
+				<p:fieldset legend="Filtro">
+					<h:panelGrid columns="3">
+						<p:outputLabel for="filtroNumero" value="N.o:" />
+						<p:inputText id="filtroNumero" value="#{filtro.numero}" size="10" />
+						<p:message for="filtroNumero" />
+					</h:panelGrid>
+					<p:commandButton value="Filtrar" action="filtrar" update="@form" />
+				</p:fieldset>
+				<p:spacer height="5" />
+				<p:dataTable value="#{notas}" var="n"
+					emptyMessage="Nenhuma nota fiscal encontrada.">
+					<p:column headerText="N.o">
+						<h:outputText value="#{n.numero}" />
+					</p:column>
+					<p:column style="width: 80px">
+						<p:commandButton icon="ui-icon-pencil" action="editar" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+			<p:commandButton value="Novo" action="novo" />
+		</h:form>
+	</ui:define>
+</ui:composition>

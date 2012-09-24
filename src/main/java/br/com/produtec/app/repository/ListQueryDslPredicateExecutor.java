@@ -7,7 +7,7 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 
-public interface JpaQueryDslPredicateExecutor<T> extends QueryDslPredicateExecutor<T> {
+public interface ListQueryDslPredicateExecutor<T> extends QueryDslPredicateExecutor<T> {
 
 	@Override
 	public List<T> findAll(Predicate predicate);

@@ -4,10 +4,12 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Reference;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import br.com.produtec.app.pedido.Faturamento;
@@ -15,6 +17,7 @@ import br.com.produtec.app.pedido.PedidoObserver;
 import br.com.produtec.app.service.WebServiceReceita;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Lists;
 
 @Document
 public class NotaFiscal implements Serializable, PedidoObserver {
@@ -24,16 +27,25 @@ public class NotaFiscal implements Serializable, PedidoObserver {
 	@Id
 	private String id;
 
-	EstadoNotaFiscal estado = EstadoNotaFiscal.FATURADA;
+	transient EstadoNotaFiscal estado = EstadoNotaFiscal.FATURADA;
 
 	@NotNull
 	private Integer numero;
+
+	@Reference
+	private List<Item> itens = Lists.newLinkedList();
 
 	NotaFiscal() {
 	}
 
 	private NotaFiscal(Integer numero) {
 		this.numero = numero;
+		for (int i = 0; i < 5; i++) {
+			Item item = new Item();
+			item.setQuantidade(i + 1);
+			item.setNome(String.format("Nome %d", i + 1));
+			itens.add(item);
+		}
 	}
 
 	public static NotaFiscal newNotaFiscal(Integer numero) {
@@ -70,7 +82,7 @@ public class NotaFiscal implements Serializable, PedidoObserver {
 	}
 
 	public void enviar(WebServiceReceita webServiceReceita) {
-		//codigo encapsulado
+		// codigo encapsulado
 		// Tell, don't ask
 
 		// Mande, não pergunte
@@ -81,4 +93,11 @@ public class NotaFiscal implements Serializable, PedidoObserver {
 		System.out.println("Nota Fiscal Faturada");
 	}
 
+	public Integer getNumero() {
+		return numero;
+	}
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
 }

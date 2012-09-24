@@ -6,13 +6,13 @@ import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 
-import br.com.produtec.config.root.annotation.Desenvolvimento;
+import br.com.produtec.config.root.annotation.Teste;
 
 import com.mongodb.Mongo;
 
-@Desenvolvimento
+@Teste
 @Configuration
-public class LocalhostMongoConfig implements MongoConfig {
+public class TesteMongoConfig implements MongoConfig {
 
 	@Bean
 	public Mongo mongo() throws Exception {
