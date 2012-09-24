@@ -20,4 +20,9 @@ public class PedidoFacade {
 		return Pedido.newPedido(proximoNumeroDoPedido);
 	}
 
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public Integer proximoNumeroPedido() {
+		return sequencialPedidoRepository.getSequencialPedido().proximoNumeroDoPedido();
+	}
+
 }

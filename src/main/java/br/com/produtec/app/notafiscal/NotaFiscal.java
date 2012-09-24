@@ -9,7 +9,6 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Reference;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import br.com.produtec.app.pedido.Faturamento;
@@ -32,7 +31,6 @@ public class NotaFiscal implements Serializable, PedidoObserver {
 	@NotNull
 	private Integer numero;
 
-	@Reference
 	private List<Item> itens = Lists.newLinkedList();
 
 	NotaFiscal() {
