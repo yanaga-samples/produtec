@@ -17,7 +17,7 @@
 			<evaluate expression="notaFiscalController.novo()" result="flowScope.notaFiscal" />
 		</transition>
 		<transition on="editar" to="notaFiscalEdit">
-			<set name="flowScope.notaFiscal" value="notaFiscals.selectedRow" />
+			<set name="flowScope.notaFiscal" value="notas.selectedRow" />
 		</transition>
 	</view-state>
 

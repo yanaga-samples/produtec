@@ -26,8 +26,6 @@ public class NotaFiscal implements Serializable, PedidoObserver {
 	@Id
 	private String id;
 
-	transient EstadoNotaFiscal estado = EstadoNotaFiscal.FATURADA;
-
 	@NotNull
 	private Integer numero;
 
@@ -69,14 +67,6 @@ public class NotaFiscal implements Serializable, PedidoObserver {
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this).add("numero", numero).toString();
-	}
-
-	public String getMensagem() {
-		return estado.accept(new MensagemEstadoNotaFiscalVisitor());
-	}
-
-	public int getCodigoNaReceita() {
-		return estado.accept(new CodigoReceitaEstadoNotaFiscalVisitor());
 	}
 
 	public void enviar(WebServiceReceita webServiceReceita) {
