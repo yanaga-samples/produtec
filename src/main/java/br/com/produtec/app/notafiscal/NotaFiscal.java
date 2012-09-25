@@ -16,6 +16,7 @@ import br.com.produtec.app.pedido.PedidoObserver;
 import br.com.produtec.app.service.WebServiceReceita;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 @Document
@@ -36,12 +37,6 @@ public class NotaFiscal implements Serializable, PedidoObserver {
 
 	private NotaFiscal(Integer numero) {
 		this.numero = numero;
-		for (int i = 0; i < 5; i++) {
-			Item item = new Item();
-			item.setQuantidade(i + 1);
-			item.setNome(String.format("Nome %d", i + 1));
-			itens.add(item);
-		}
 	}
 
 	public static NotaFiscal newNotaFiscal(Integer numero) {
@@ -88,4 +83,9 @@ public class NotaFiscal implements Serializable, PedidoObserver {
 	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
+
+	public List<Item> getItens() {
+		return ImmutableList.copyOf(itens);
+	}
+
 }

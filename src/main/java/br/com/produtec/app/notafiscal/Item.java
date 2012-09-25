@@ -2,28 +2,37 @@ package br.com.produtec.app.notafiscal;
 
 import java.io.Serializable;
 
+import br.com.produtec.app.Produto;
+
 public class Item implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private int quantidade = 0;
+	private Produto produto;
 
-	private String nome;
+	private Integer quantidade;
 
-	public int getQuantidade() {
+	Item() {
+	}
+
+	public static Item newItem() {
+		return new Item();
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+	public Integer getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(int quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 }
