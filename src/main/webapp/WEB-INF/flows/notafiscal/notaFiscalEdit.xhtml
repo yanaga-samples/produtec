@@ -7,14 +7,49 @@
 	<ui:define name="body">
 		<h:form>
 			<p:panel header="Cadastro de Nota Fiscal">
-				<h:panelGrid columns="3">
-					<h:outputLabel for="numero" value="N.o:" />
-					<p:inputText id="numero" value="#{notaFiscal.numero}" />
-					<p:message for="numero" />
-				</h:panelGrid>
+				<p:fieldset legend="Dados">
+					<h:panelGrid columns="3">
+						<h:outputLabel for="numero" value="N.o:" />
+						<p:inputText id="numero" value="#{notaFiscal.numero}" />
+						<p:message for="numero" />
+					</h:panelGrid>
+				</p:fieldset>
+				<p:spacer height="3" />
+				<p:commandButton value="Novo Item" action="novoItem"
+					oncomplete="itemDialog.show();" />
+				<p:spacer height="3" />
+				<p:fieldset legend="Itens">
+					<p:dataTable value="#{itens}" var="i"
+						emptyMessage="Nenhum item cadastrado.">
+						<p:column headerText="Produto">
+							<h:outputText value="#{i.produto.nome}" />
+						</p:column>
+						<p:column headerText="Quantidade">
+							<h:outputText value="#{i.quantidade}" />
+						</p:column>
+					</p:dataTable>
+				</p:fieldset>
 			</p:panel>
 			<p:commandButton value="Salvar" action="salvar" />
 			<p:commandButton value="Cancelar" action="cancelar" />
 		</h:form>
+
+		<p:dialog widgetVar="itemDialog" modal="true" header="Cadastro de Item" resizable="false">
+			<h:form id="itemForm">
+				<p:fieldset>
+					<h:panelGrid columns="3">
+						<h:outputLabel for="produto" value="Produto:" />
+						<p:inputText id="produto" value="#{item.produto}" />
+						<p:message for="produto" />
+
+						<h:outputLabel for="quantidade" value="Quantidade:" />
+						<p:inputText id="quantidade" value="#{item.quantidade}" />
+						<p:message for="quantidade" />
+					</h:panelGrid>
+				</p:fieldset>
+				<p:commandButton value="OK" action="okItem" />
+				<p:commandButton value="Cancelar" onclick="itemDialog.hide();" />
+			</h:form>
+		</p:dialog>
 	</ui:define>
 </ui:composition>
