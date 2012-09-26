@@ -13,13 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PostLoad;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
 import javax.persistence.Version;
-
-import org.apache.commons.codec.binary.Hex;
 
 import br.com.produtec.app.pedido.Faturamento;
 import br.com.produtec.app.pedido.PedidoObserver;
@@ -28,8 +23,6 @@ import br.com.produtec.app.quantidade.Quantidade;
 import br.com.produtec.app.quantidade.QuantidadeFactory;
 
 import com.google.common.base.Objects;
-import com.google.common.hash.HashCode;
-import com.google.common.hash.Hashing;
 
 @Entity
 public class ItemEstoque implements Serializable, PedidoObserver {
@@ -50,9 +43,6 @@ public class ItemEstoque implements Serializable, PedidoObserver {
 	@Column(scale = 2)
 	private Quantidade quantidade = QuantidadeFactory.INSTANCE.newQuantidade(BigDecimal.ZERO);
 
-	@Column(length = 32)
-	private String md5;
-
 	@Transient
 	private boolean alterada;
 
@@ -66,23 +56,6 @@ public class ItemEstoque implements Serializable, PedidoObserver {
 	public static ItemEstoque newItemEstoque(Produto produto) {
 		checkNotNull(produto);
 		return new ItemEstoque(produto);
-	}
-
-	@PrePersist
-	@PreUpdate
-	void calcularMd5() {
-		this.md5 = md5();
-	}
-
-	@PostLoad
-	void verificarMd5() {
-		this.alterada = !this.md5.equals(md5());
-	}
-
-	private String md5() {
-		HashCode hashCode = Hashing.md5().newHasher().putString(produto.toString()).putString(quantidade.toString())
-				.hash();
-		return Hex.encodeHexString(hashCode.asBytes());
 	}
 
 	@Override
@@ -126,6 +99,10 @@ public class ItemEstoque implements Serializable, PedidoObserver {
 
 	public boolean isAlterada() {
 		return alterada;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 }

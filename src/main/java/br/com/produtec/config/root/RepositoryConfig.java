@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement(proxyTargetClass = true)
 @Configuration
-@ImportResource("classpath*:META-INF/spring/applicationContext-jpa.xml")
+@ImportResource("classpath*:META-INF/spring/applicationContext-data.xml")
 public class RepositoryConfig {
 
 	@Autowired

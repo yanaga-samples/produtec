@@ -6,10 +6,10 @@
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.1.xsd">
 	<jpa:repositories base-package="br.com.produtec" />
 	<mongo:repositories base-package="br.com.produtec.app.notafiscal.repository" />
-	<bean class="org.springframework.data.persistence.document.mongo.MongoDocumentBacking" factory-method="aspectOf">
+	<bean class="org.springframework.data.mongodb.crossstore.MongoDocumentBacking" factory-method="aspectOf">
 		<property name="changeSetPersister" ref="mongoChangeSetPersister" />
 	</bean>
-	<bean id="mongoChangeSetPersister" class="org.springframework.data.persistence.document.mongo.MongoChangeSetPersister">
+	<bean id="mongoChangeSetPersister" class="org.springframework.data.mongodb.crossstore.MongoChangeSetPersister">
 		<property name="mongoTemplate" ref="mongoTemplate" />
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
