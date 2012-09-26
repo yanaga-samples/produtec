@@ -10,7 +10,7 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
 import org.joda.time.Days;
 
-import br.com.produtec.app.Produto;
+import br.com.produtec.app.produto.Produto;
 import br.com.produtec.app.quantidade.Adicao;
 import br.com.produtec.app.quantidade.Quantidade;
 import br.com.produtec.app.quantidade.QuantidadeFactory;

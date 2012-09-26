@@ -15,8 +15,8 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
 import org.junit.Test;
 
-import br.com.produtec.app.Produto;
 import br.com.produtec.app.pessoa.Vendedor;
+import br.com.produtec.app.produto.Produto;
 import br.com.produtec.app.quantidade.Percentual;
 import br.com.produtec.app.quantidade.Quantidade;
 import br.com.produtec.app.quantidade.QuantidadeFactory;

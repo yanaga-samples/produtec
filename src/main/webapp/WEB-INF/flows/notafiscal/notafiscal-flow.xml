@@ -22,6 +22,21 @@
 	</view-state>
 
 	<view-state id="notaFiscalEdit">
+		<on-render>
+			<set name="viewScope.itens" value="notaFiscal.itens" type="dataModel" />
+		</on-render>
+		<transition on="novoItem">
+			<evaluate expression="notaFiscalController.novoItem()" result="viewScope.item" />
+		</transition>
+		<transition on="editarItem">
+			<set name="viewScope.item" value="itens.selectedRow" />
+		</transition>
+		<transition on="excluirItem">
+			<evaluate expression="notaFiscal.removeItem(itens.selectedRow)" />
+		</transition>
+		<transition on="okItem">
+			<evaluate expression="notaFiscal.addItem(item)" />
+		</transition>
 		<transition on="salvar" to="ok">
 			<evaluate expression="notaFiscalRepository.save(notaFiscal)" />
 		</transition>

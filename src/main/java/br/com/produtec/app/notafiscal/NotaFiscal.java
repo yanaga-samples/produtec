@@ -64,6 +64,22 @@ public class NotaFiscal implements Serializable, PedidoObserver {
 		return Objects.toStringHelper(this).add("numero", numero).toString();
 	}
 
+	public NotaFiscal addItem(Item item) {
+		checkNotNull(item, "Item não pode ser nulo.");
+		if (!itens.contains(item)) {
+			itens.add(item);
+		}
+		return this;
+	}
+
+	public NotaFiscal removeItem(Item item) {
+		checkNotNull(item, "Item não pode ser nulo.");
+		if (itens.contains(item)) {
+			itens.remove(item);
+		}
+		return this;
+	}
+
 	public void enviar(WebServiceReceita webServiceReceita) {
 		// codigo encapsulado
 		// Tell, don't ask
@@ -74,6 +90,10 @@ public class NotaFiscal implements Serializable, PedidoObserver {
 	@Override
 	public void faturado(Faturamento faturamento) {
 		System.out.println("Nota Fiscal Faturada");
+	}
+
+	public String getId() {
+		return id;
 	}
 
 	public Integer getNumero() {

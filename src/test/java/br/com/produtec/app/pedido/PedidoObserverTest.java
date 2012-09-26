@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
-import br.com.produtec.app.Produto;
 import br.com.produtec.app.estoque.ItemEstoque;
+import br.com.produtec.app.produto.Produto;
 import br.com.produtec.app.quantidade.QuantidadeFactory;
 
 public class PedidoObserverTest {

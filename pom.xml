@@ -30,6 +30,7 @@
 		</repository>
 	</repositories>
 	<properties>
+		<aspectj.version>1.6.12</aspectj.version>
 		<java.version>1.6</java.version>
 		<mojarra.version>2.1.7</mojarra.version>
 		<primefaces.version>3.4</primefaces.version>
@@ -39,6 +40,7 @@
 		<slf4j.version>1.6.1</slf4j.version>
 		<spring.version>3.1.1.RELEASE</spring.version>
 		<spring-data-jpa.version>1.2.0.RC1</spring-data-jpa.version>
+		<spring-data-mongodb.version>1.1.0.RC1</spring-data-mongodb.version>
 		<spring-security.version>3.1.0.RELEASE</spring-security.version>
 		<spring-webflow.version>2.3.1.RELEASE</spring-webflow.version>
 	</properties>
@@ -77,6 +79,17 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
+		</dependency>
+		<!-- AspectJ -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj.version}</version>
 		</dependency>
 		<!-- Spring dependencies -->
 		<dependency>
@@ -285,7 +298,12 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>
-			<version>1.1.0.RC1</version>
+			<version>${spring-data-mongodb.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb-cross-store</artifactId>
+			<version>${spring-data-mongodb.version}</version>
 		</dependency>
 		<!-- QueryDSL -->
 		<dependency>
@@ -332,6 +350,12 @@
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>${primefaces.version}</version>
+		</dependency>
+		<!-- omnifaces -->
+		<dependency>
+			<groupId>org.omnifaces</groupId>
+			<artifactId>omnifaces</artifactId>
+			<version>1.1</version>
 		</dependency>
 		<!-- Database -->
 		<dependency>
@@ -401,6 +425,46 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>aspectj-maven-plugin</artifactId>
+				<version>1.4</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjrt</artifactId>
+						<version>${aspectj.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjtools</artifactId>
+						<version>${aspectj.version}</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>test-compile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<outxml>true</outxml>
+					<aspectLibraries>
+						<aspectLibrary>
+							<groupId>org.springframework</groupId>
+							<artifactId>spring-aspects</artifactId>
+						</aspectLibrary>
+						<aspectLibrary>
+							<groupId>org.springframework.data</groupId>
+							<artifactId>spring-data-mongodb-cross-store</artifactId>
+						</aspectLibrary>
+					</aspectLibraries>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.4</version>
@@ -442,54 +506,54 @@
 					</execution>
 				</executions>
 			</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>1.7</version>
-					<executions>
-						<execution>
-							<id>add-source</id>
-							<phase>generate-sources</phase>
-							<goals>
-								<goal>add-source</goal>
-							</goals>
-							<configuration>
-								<sources>
-									<source>target/generated-sources/java</source>
-								</sources>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>com.mysema.maven</groupId>
-					<artifactId>maven-apt-plugin</artifactId>
-					<version>1.0.1</version>
-					<executions>
-						<execution>
-							<id>jpa</id>
-							<goals>
-								<goal>process</goal>
-							</goals>
-							<configuration>
-								<outputDirectory>target/generated-sources/java</outputDirectory>
-								<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
-							</configuration>
-						</execution>
-						<execution>
-							<id>mongo</id>
-							<phase>generate-sources</phase>
-							<goals>
-								<goal>process</goal>
-							</goals>
-							<configuration>
-								<outputDirectory>target/generated-sources/java</outputDirectory>
-								<processor>org.springframework.data.mongodb.repository.support.MongoAnnotationProcessor</processor>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-			</plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>target/generated-sources/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>maven-apt-plugin</artifactId>
+				<version>1.0.1</version>
+				<executions>
+					<execution>
+						<id>jpa</id>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+					<execution>
+						<id>mongo</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<processor>org.springframework.data.mongodb.repository.support.MongoAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
 	<profiles>
 		<profile>

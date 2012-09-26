@@ -21,9 +21,9 @@ import javax.persistence.Version;
 
 import org.apache.commons.codec.binary.Hex;
 
-import br.com.produtec.app.Produto;
 import br.com.produtec.app.pedido.Faturamento;
 import br.com.produtec.app.pedido.PedidoObserver;
+import br.com.produtec.app.produto.Produto;
 import br.com.produtec.app.quantidade.Quantidade;
 import br.com.produtec.app.quantidade.QuantidadeFactory;
 

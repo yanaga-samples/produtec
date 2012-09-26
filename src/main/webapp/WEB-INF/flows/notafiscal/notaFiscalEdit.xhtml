@@ -2,10 +2,11 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions"
 	template="/WEB-INF/template/blank.xhtml">
 	<ui:define name="body">
-		<h:form>
+		<h:form id="notaFiscalForm">
 			<p:panel header="Cadastro de Nota Fiscal">
 				<p:fieldset legend="Dados">
 					<h:panelGrid columns="3">
@@ -16,16 +17,22 @@
 				</p:fieldset>
 				<p:spacer height="3" />
 				<p:commandButton value="Novo Item" action="novoItem"
-					oncomplete="itemDialog.show();" />
+					oncomplete="itemDialog.show();" update=":itemForm" />
 				<p:spacer height="3" />
 				<p:fieldset legend="Itens">
-					<p:dataTable value="#{itens}" var="i"
+					<p:dataTable id="itens" value="#{itens}" var="i"
 						emptyMessage="Nenhum item cadastrado.">
 						<p:column headerText="Produto">
 							<h:outputText value="#{i.produto.nome}" />
 						</p:column>
 						<p:column headerText="Quantidade">
 							<h:outputText value="#{i.quantidade}" />
+						</p:column>
+						<p:column style="width:80px">
+							<p:commandButton icon="ui-icon-pencil" action="editarItem"
+								update=":itemForm" oncomplete="itemDialog.show();" />
+							<p:commandButton icon="ui-icon-trash" action="excluirItem"
+								update=":notaFiscalForm:itens" />
 						</p:column>
 					</p:dataTable>
 				</p:fieldset>
@@ -34,12 +41,15 @@
 			<p:commandButton value="Cancelar" action="cancelar" />
 		</h:form>
 
-		<p:dialog widgetVar="itemDialog" modal="true" header="Cadastro de Item" resizable="false">
+		<p:dialog widgetVar="itemDialog" modal="true"
+			header="Cadastro de Item" resizable="false">
 			<h:form id="itemForm">
 				<p:fieldset>
 					<h:panelGrid columns="3">
 						<h:outputLabel for="produto" value="Produto:" />
-						<p:inputText id="produto" value="#{item.produto}" />
+						<p:autoComplete id="produto" value="#{item.produto}"
+							completeMethod="#{produtoController.autocomplete}" var="p"
+							itemLabel="#{p.nome}" itemValue="#{p}" forceSelection="true" />
 						<p:message for="produto" />
 
 						<h:outputLabel for="quantidade" value="Quantidade:" />
@@ -47,7 +57,8 @@
 						<p:message for="quantidade" />
 					</h:panelGrid>
 				</p:fieldset>
-				<p:commandButton value="OK" action="okItem" />
+				<p:commandButton value="OK" action="okItem"
+					oncomplete="itemDialog.hide();" update=":notaFiscalForm:itens" />
 				<p:commandButton value="Cancelar" onclick="itemDialog.hide();" />
 			</h:form>
 		</p:dialog>

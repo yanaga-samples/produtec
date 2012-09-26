@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import br.com.produtec.app.notafiscal.Item;
 import br.com.produtec.app.notafiscal.NotaFiscal;
 import br.com.produtec.app.notafiscal.repository.NotaFiscalRepository;
 
@@ -16,6 +17,10 @@ public class NotaFiscalController {
 
 	public NotaFiscal novo() {
 		return NotaFiscal.newNotaFiscal(123);
+	}
+
+	public Item novoItem() {
+		return Item.newItem();
 	}
 
 	public FiltroNotaFiscal getFiltro() {

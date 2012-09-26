@@ -2,7 +2,7 @@ package br.com.produtec.app.notafiscal;
 
 import java.io.Serializable;
 
-import br.com.produtec.app.Produto;
+import br.com.produtec.app.produto.Produto;
 
 public class Item implements Serializable {
 

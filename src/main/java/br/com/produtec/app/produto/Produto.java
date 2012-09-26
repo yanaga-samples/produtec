@@ -1,4 +1,4 @@
-package br.com.produtec.app;
+package br.com.produtec.app.produto;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
