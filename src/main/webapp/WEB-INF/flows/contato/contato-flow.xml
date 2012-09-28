@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<secured attributes="ROLE_USER" />
+
+	<subflow-state id="list" subflow="contato/list">
+		<transition on="ok" to="edit">
+			<set name="flowScope.contato" value="currentEvent.attributes.contato" />
+		</transition>
+	</subflow-state>
+
+	<subflow-state id="edit" subflow="contato/edit">
+		<input name="contato" value="flowScope.contato" />
+		<transition on="ok" to="ok" />
+		<transition on="cancel" to="list" />
+	</subflow-state>
+
+	<end-state id="ok" />
+</flow>

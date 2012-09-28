@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	template="/WEB-INF/template/blank.xhtml">
+	<ui:define name="body">
+		<h:form>
+			<p:panel header="Consulta de Contatos">
+				<p:spacer height="5" />
+				<p:dataTable value="#{contatos}" var="c"
+					emptyMessage="Nenhum contato encontrado.">
+					<p:column headerText="Nome">
+						<h:outputText value="#{c.nome}" />
+					</p:column>
+					<p:column style="width: 80px">
+						<p:commandButton icon="ui-icon-pencil" action="editar" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+			<p:commandButton value="Novo" action="novo" />
+		</h:form>
+	</ui:define>
+</ui:composition>

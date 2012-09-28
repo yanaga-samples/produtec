@@ -28,7 +28,9 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
+import org.springframework.data.mongodb.crossstore.RelatedDocument;
 
+import br.com.produtec.app.Picanha;
 import br.com.produtec.app.pessoa.Vendedor;
 import br.com.produtec.app.produto.Produto;
 import br.com.produtec.app.quantidade.Quantidade;
@@ -80,11 +82,17 @@ public class Pedido implements Serializable {
 	@Transient
 	private Set<PedidoObserver> observadores = Sets.newHashSet();
 
+	@RelatedDocument
+	private Picanha picanha = new Picanha();
+
 	Pedido() {
 	}
 
 	private Pedido(Integer numero) {
 		this.numero = numero;
+		this.picanha.setNomeDoBoi("Boi Bandido");
+		this.picanha.setPeso(new BigDecimal("12.00"));
+		this.picanha.setValidade(new DateTime(DateTimeUtils.currentTimeMillis()));
 	}
 
 	public static Pedido newPedido(Integer numero) {

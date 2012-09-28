@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<secured attributes="ROLE_USER" />
+
+	<view-state id="contatoList">
+		<on-render>
+			<evaluate expression="contatoController.filtrar()" result="viewScope.contatos" result-type="dataModel" />
+		</on-render>
+		<transition on="novo" to="ok">
+			<evaluate expression="contatoController.novo()" result="flowScope.contato" />
+		</transition>
+		<transition on="editar" to="ok">
+			<set name="flowScope.contato" value="contatos.selectedRow" />
+		</transition>
+	</view-state>
+
+	<end-state id="ok" view="/spring/login">
+		<output name="contato" value="flowScope.contato" />
+	</end-state>
+</flow>
