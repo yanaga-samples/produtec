@@ -4,6 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.1.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.1.xsd">
+	<!--
 	<bean class="org.springframework.data.mongodb.crossstore.MongoDocumentBacking" factory-method="aspectOf">
 		<property name="changeSetPersister" ref="mongoChangeSetPersister" />
 	</bean>
@@ -11,4 +12,5 @@
 		<property name="mongoTemplate" ref="mongoTemplate" />
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
+	 -->
 </beans>

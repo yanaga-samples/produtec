@@ -455,10 +455,12 @@
 							<groupId>org.springframework</groupId>
 							<artifactId>spring-aspects</artifactId>
 						</aspectLibrary>
+						<!--
 						<aspectLibrary>
 							<groupId>org.springframework.data</groupId>
 							<artifactId>spring-data-mongodb-cross-store</artifactId>
 						</aspectLibrary>
+						 -->
 					</aspectLibraries>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
