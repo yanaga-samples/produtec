@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import br.com.produtec.app.contato.Contato;
 import br.com.produtec.app.pedido.Faturamento;
 import br.com.produtec.app.pedido.PedidoObserver;
 import br.com.produtec.app.service.WebServiceReceita;
@@ -31,6 +32,8 @@ public class NotaFiscal implements Serializable, PedidoObserver {
 	private Integer numero;
 
 	private List<Item> itens = Lists.newLinkedList();
+
+	private Contato contato;
 
 	NotaFiscal() {
 	}
@@ -106,6 +109,14 @@ public class NotaFiscal implements Serializable, PedidoObserver {
 
 	public List<Item> getItens() {
 		return ImmutableList.copyOf(itens);
+	}
+
+	public Contato getContato() {
+		return contato;
+	}
+
+	public void setContato(Contato contato) {
+		this.contato = contato;
 	}
 
 }

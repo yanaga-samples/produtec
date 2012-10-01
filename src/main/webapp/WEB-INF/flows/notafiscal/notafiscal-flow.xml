@@ -21,10 +21,11 @@
 		</transition>
 	</view-state>
 
-	<view-state id="notaFiscalEdit">
+	<view-state id="notaFiscalEdit" model="notaFiscal">
 		<on-render>
 			<set name="viewScope.itens" value="notaFiscal.itens" type="dataModel" />
 		</on-render>
+		<transition on="buscarContato" to="contatoList" />
 		<transition on="novoItem">
 			<evaluate expression="notaFiscalController.novoItem()" result="viewScope.item" />
 		</transition>
@@ -42,6 +43,15 @@
 		</transition>
 		<transition on="cancelar" to="cancel" />
 	</view-state>
+
+	<subflow-state id="contatoList" subflow="contato/list">
+		<input name="mode" value="'embedded'" />
+		<input name="popup" value="true" />
+		<transition on="ok" to="notaFiscalEdit">
+			<set name="notaFiscal.contato" value="currentEvent.attributes.contato" />
+		</transition>
+		<transition on="cancel" to="notaFiscalEdit" />
+	</subflow-state>
 
 	<end-state id="ok" commit="true" />
 	<end-state id="cancel" />

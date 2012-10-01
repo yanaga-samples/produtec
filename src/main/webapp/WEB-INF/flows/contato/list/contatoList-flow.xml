@@ -5,6 +5,8 @@
 
 	<secured attributes="ROLE_USER" />
 
+	<input name="popup" type="java.lang.Boolean" />
+
 	<view-state id="contatoList">
 		<on-render>
 			<evaluate expression="contatoController.filtrar()" result="viewScope.contatos" result-type="dataModel" />
@@ -13,6 +15,9 @@
 			<evaluate expression="contatoController.novo()" result="flowScope.contato" />
 		</transition>
 		<transition on="editar" to="ok">
+			<set name="flowScope.contato" value="contatos.selectedRow" />
+		</transition>
+		<transition on="select" to="ok">
 			<set name="flowScope.contato" value="contatos.selectedRow" />
 		</transition>
 	</view-state>

@@ -6,7 +6,7 @@
 	xmlns:sec="http://www.springframework.org/security/tags"
 	template="/WEB-INF/template/blank.xhtml">
 	<ui:define name="body">
-		<h:form>
+		<h:form id="contato">
 			<p:panel header="Consulta de Contatos">
 				<p:spacer height="5" />
 				<p:dataTable value="#{contatos}" var="c"
@@ -15,11 +15,15 @@
 						<h:outputText value="#{c.nome}" />
 					</p:column>
 					<p:column style="width: 80px">
-						<p:commandButton icon="ui-icon-pencil" action="editar" />
+						<p:commandButton icon="ui-icon-pencil" action="editar"
+							rendered="#{not popup}" />
+						<p:commandButton icon="ui-icon-check" action="select"
+							rendered="#{popup}" update="@all"
+							oncomplete="contatoDialog.hide();" />
 					</p:column>
 				</p:dataTable>
 			</p:panel>
-			<p:commandButton value="Novo" action="novo" />
+			<p:commandButton value="Novo" action="novo" rendered="#{not popup}" />
 		</h:form>
 	</ui:define>
 </ui:composition>
