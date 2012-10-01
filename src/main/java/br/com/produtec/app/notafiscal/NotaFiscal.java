@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import br.com.produtec.app.contato.Contato;
 import br.com.produtec.app.pedido.Faturamento;
+import br.com.produtec.app.pedido.Pedido;
 import br.com.produtec.app.pedido.PedidoObserver;
 import br.com.produtec.app.service.WebServiceReceita;
 
@@ -46,6 +47,10 @@ public class NotaFiscal implements Serializable, PedidoObserver {
 		checkNotNull(numero);
 		checkArgument(numero > 0);
 		return new NotaFiscal(numero);
+	}
+
+	public static NotaFiscal newNotaFiscal(Pedido pedido) {
+		return new NotaFiscal(pedido.getNumero());
 	}
 
 	@Override

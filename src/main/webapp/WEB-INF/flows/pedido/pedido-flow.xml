@@ -24,7 +24,7 @@
 	<view-state id="pedidoEdit">
 		<secured attributes="ROLE_EDITAR_PEDIDO"/>
 		<transition on="salvar" to="ok">
-			<evaluate expression="pedidoRepository.save(pedido)" />
+			<evaluate expression="pedidoFacade.save(pedido)" />
 		</transition>
 		<transition on="cancelar" to="cancel" />
 	</view-state>
