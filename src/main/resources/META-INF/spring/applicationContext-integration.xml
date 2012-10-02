@@ -14,11 +14,18 @@
 	<bean class="org.springframework.jms.core.JmsTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
 	</bean>
+	<!-- Envio para o ActiveMQ -->
 	<int:gateway service-interface="br.com.produtec.app.pedido.integration.PedidoGateway" />
 	<int:channel id="outputPedidoChannel" />
-	<int-jms:outbound-channel-adapter channel="outputPedidoChannel" destination="pedidoQueue" />
+	<int:object-to-json-transformer input-channel="outputPedidoChannel" output-channel="jsonOutputPedidoChannel" />
+	<int:channel id="jsonOutputPedidoChannel" />
+	<int-jms:outbound-channel-adapter channel="jsonOutputPedidoChannel" destination="pedidoQueue" />
+
+	<!-- Recebimento do ActiveMQ -->
+	<int-jms:message-driven-channel-adapter destination="pedidoQueue" channel="jsonInputPedidoChannel"
+		connection-factory="connectionFactory" />
+	<int:channel id="jsonInputPedidoChannel" />
+	<int:json-to-object-transformer input-channel="jsonInputPedidoChannel" output-channel="inputPedidoChannel"
+		type="br.com.produtec.app.pedido.Pedido" />
 	<int:channel id="inputPedidoChannel" />
-	<int-jms:inbound-channel-adapter channel="inputPedidoChannel" destination="pedidoQueue">
-		<int:poller fixed-rate="5000" />
-	</int-jms:inbound-channel-adapter>
 </beans>

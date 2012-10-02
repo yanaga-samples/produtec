@@ -25,6 +25,8 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
@@ -41,11 +43,13 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class Pedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@JsonProperty
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -53,14 +57,18 @@ public class Pedido implements Serializable {
 	@Version
 	Integer version;
 
+	@JsonProperty
 	@NotNull
 	private Integer numero;
 
+	@JsonProperty
 	private String nome;
 
+	@JsonProperty
 	@Type(type = "estadoPedido")
 	EstadoPedido estadoPedido = EstadoPedido.ABERTO;
 
+	@JsonProperty
 	DateTime data = new DateTime(DateTimeUtils.currentTimeMillis());
 
 	@ManyToOne
@@ -179,7 +187,7 @@ public class Pedido implements Serializable {
 	public Quantidade getComissao() {
 		Map<Produto, Quantidade> produtosNaoCancelados = getProdutosNaoCancelados();
 		Quantidade comissao = QuantidadeFactory.INSTANCE.newQuantidade(BigDecimal.ZERO);
-		for (Produto produto: produtosNaoCancelados.keySet()) {
+		for (Produto produto : produtosNaoCancelados.keySet()) {
 			Quantidade comissaoProduto = produtosNaoCancelados.get(produto).percentual(vendedor.getComissao());
 			comissao = adicao(comissao).somando(comissaoProduto).somar();
 		}
